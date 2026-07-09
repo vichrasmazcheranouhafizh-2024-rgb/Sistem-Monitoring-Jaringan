@@ -9,7 +9,6 @@ import {
   ScanLine,
   Cpu,
   Sparkles,
-  Pulse,
 } from "lucide-react";
 
 export type ViewKey =
@@ -50,7 +49,7 @@ export function Sidebar({ active, onChange, healthScore }: SidebarProps) {
       <div className="flex items-center gap-3 px-2 py-4">
         <div className="relative">
           <div className="size-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
-            <Pulse className="size-5 text-white" strokeWidth={2.5} />
+            <Activity className="size-5 text-white" strokeWidth={2.5} />
           </div>
           <span className="absolute -top-0.5 -right-0.5 size-3 rounded-full bg-emerald-500 ring-2 ring-white" />
         </div>

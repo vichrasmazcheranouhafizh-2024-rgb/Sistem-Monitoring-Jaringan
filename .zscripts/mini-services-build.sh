@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # 配置项
-ROOT_DIR="/home/z/my-project/mini-services"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../mini-services" && pwd)"
 DIST_DIR="/tmp/build_fullstack_$BUILD_ID/mini-services-dist"
 
 main() {
@@ -13,6 +14,13 @@ main() {
         return
     fi
     
+    # 检查 bun 是否存在，因为 bun build 是必需的
+    if ! command -v bun >/dev/null 2>&1; then
+        echo "⚠️  警告: 本系统未安装 'bun'。无法执行 bun build 构建 mini-services。"
+        echo "   若需要构建 mini-services，请确保环境中已安装 bun。"
+        return
+    fi
+
     # 创建输出目录（如果不存在）
     mkdir -p "$DIST_DIR"
     

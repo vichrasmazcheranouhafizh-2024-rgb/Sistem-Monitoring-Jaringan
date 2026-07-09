@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # 配置项
-ROOT_DIR="/home/z/my-project/mini-services"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../mini-services" && pwd)"
 
 main() {
     echo "🚀 开始批量安装依赖..."
@@ -17,6 +18,13 @@ main() {
     fail_count=0
     failed_projects=""
     
+    # 检查包管理器
+    INSTALL_CMD="npm install"
+    if command -v bun >/dev/null 2>&1; then
+        INSTALL_CMD="bun install"
+    fi
+    echo "📦 使用包管理器: $INSTALL_CMD"
+    
     # 遍历 mini-services 目录下的所有文件夹
     for dir in "$ROOT_DIR"/*; do
         # 检查是否是目录且包含 package.json
@@ -25,8 +33,8 @@ main() {
             echo ""
             echo "📦 正在安装依赖: $project_name..."
             
-            # 进入项目目录并执行 bun install
-            if (cd "$dir" && bun install); then
+            # 进入项目目录并执行安装命令
+            if (cd "$dir" && $INSTALL_CMD); then
                 echo "✅ $project_name 依赖安装成功"
                 success_count=$((success_count + 1))
             else

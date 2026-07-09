@@ -9,7 +9,7 @@ import { InterfaceView } from "@/components/views/interface";
 import { Scanner } from "@/components/views/scanner";
 import { Processes } from "@/components/views/processes";
 import { AIInsights } from "@/components/views/ai-insights";
-import { Pulse, Activity } from "lucide-react";
+import { Activity } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePolling } from "@/hooks/use-polling";
 import { timeAgo } from "@/lib/format";
@@ -41,7 +41,7 @@ export default function Home() {
       <header className="lg:hidden sticky top-0 z-30 bg-background/95 backdrop-blur-lg border-b border-border/60 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="size-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
-            <Pulse className="size-4.5 text-white" strokeWidth={2.5} />
+            <Activity className="size-4.5 text-white" strokeWidth={2.5} />
           </div>
           <div>
             <h1 className="font-semibold text-sm leading-tight">NetPulse</h1>

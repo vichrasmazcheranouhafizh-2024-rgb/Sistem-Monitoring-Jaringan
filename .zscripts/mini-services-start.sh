@@ -81,8 +81,14 @@ main() {
         service_name=$(basename "$file" .js | sed 's/mini-service-//')
         echo "▶️  启动服务: $service_name..."
         
-        # 使用 bun 运行服务（后台运行）
-        bun "$file" &
+        # 检查运行器
+        RUNNER="node"
+        if command -v bun >/dev/null 2>&1; then
+            RUNNER="bun"
+        fi
+        
+        # 运行服务（后台运行）
+        $RUNNER "$file" &
         pid=$!
         if [ -z "$pids" ]; then
             pids="$pid"
@@ -94,10 +100,10 @@ main() {
         sleep 0.5
         if ! kill -0 "$pid" 2>/dev/null; then
             echo "❌ $service_name 启动失败"
-            # 从字符串中移除失败的 PID
+            # 从字符串中移除失败 the PID
             pids=$(echo "$pids" | sed "s/\b$pid\b//" | sed 's/  */ /g' | sed 's/^ *//' | sed 's/ *$//')
         else
-            echo "✅ $service_name 已启动 (PID: $pid)"
+            echo "✅ $service_name 已启动 (PID: $pid) via $RUNNER"
         fi
     done
     
